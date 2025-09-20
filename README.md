@@ -24,11 +24,13 @@ Dependencies
 Example Playbook
 ----------------
 
+  ```
   ---
   - name: Unifi network-application setup
     hosts: unifi-host
     roles:
       - role: role-unifi
+  ```
 
 
 License
