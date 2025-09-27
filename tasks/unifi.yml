@@ -22,7 +22,7 @@
 - name: Deploy unifi docker compose file
   ansible.builtin.template:
     src: compose.j2
-    dest: /data/unifi/compose.yml
+    dest: "{{ unifi_data_dir }}/unifi/compose.yml"
     owner: root
     group: root
     mode: '0644'
@@ -32,7 +32,7 @@
 - name: Deploy the mongo init script
   ansible.builtin.template:
     src: init-mongo.j2
-    dest: /data/unifi/db/init-mongo.js
+    dest: "{{ unifi_data_dir }}/unifi/db/init-mongo.js"
     owner: root
     group: root
     mode: '0644'
@@ -41,13 +41,13 @@
 
 - name: Tear down existing services
   community.docker.docker_compose_v2:
-    project_src: /data/unifi
+    project_src: "{{ unifi_data_dir }}/unifi"
     state: absent
   become: true
   become_user: root
 
 - name: Create and start service
   community.docker.docker_compose_v2:
-    project_src: /data/unifi
+    project_src: "{{ unifi_data_dir }}/unifi"
   become: true
   become_user: root
